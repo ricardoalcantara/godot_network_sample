@@ -25,3 +25,7 @@ func _on_ButtonClient_pressed():
 	print("Trying to create a client");
 	Network.create_client();
 	pass # replace with function body
+
+
+func _on_Close_pressed():
+	Network.close();

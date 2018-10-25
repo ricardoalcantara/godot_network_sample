@@ -7,6 +7,7 @@ const SERVER_PORT = 9500;
 const MAX_PLAYERS = 2;
 const SERVER_IP = "127.0.0.1";
 
+var peer: NetworkedMultiplayerENet
 
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_player_connected")
@@ -21,32 +22,36 @@ var player_info = {}
 var my_info = { name = "Johnson Magenta", favorite_color = Color8(255, 0, 255) }
 
 func create_server():
-	var peer = NetworkedMultiplayerENet.new()
+	peer = NetworkedMultiplayerENet.new()
 	peer.create_server(SERVER_PORT, MAX_PLAYERS)
-	get_tree().set_network_peer(peer)
+	multiplayer.set_network_peer(peer)
 
 func create_client():
-	var peer = NetworkedMultiplayerENet.new()
+	peer = NetworkedMultiplayerENet.new()
 	peer.create_client(SERVER_IP, SERVER_PORT)
-	get_tree().set_network_peer(peer)
+	multiplayer.set_network_peer(peer)
 
 func _player_connected(id):
-	print("Server player connected: " + str(id));
+	print("Server player connected: " + str(id))
 
 func _player_disconnected(id):
-    player_info.erase(id) # Erase player from info
+	print("Server player disconnected: " + str(id))
+	player_info.erase(id) # Erase player from info
 
 func _connected_ok():
 	print("Client connected to server: ");
 	print("Client notifying my existence: ");
 	# Only called on clients, not server. Send my ID and info to all the other peers
-	rpc("register_player", get_tree().get_network_unique_id(), my_info);
+	rpc("register_player", multiplayer.get_network_unique_id(), my_info);
 
 func _server_disconnected():
 	pass # Server kicked us, show error and abort
 
 func _connected_fail():
 	pass # Could not even connect to server, abort
+
+func close():
+	peer.close_connection(0)
 
 remote func register_player(id, info):
 	print("Server received player info: " + str(id));
@@ -57,7 +62,7 @@ remote func register_player(id, info):
 	print("Server broadcasting new player: " + str(id));
 	
 	# If I'm the server, let the new guy know about existing players
-	if get_tree().is_network_server():
+	if multiplayer.is_network_server():
 	    # Send my info to new player
 	    rpc_id(id, "register_player", 1, my_info)
 	    # Send the info of existing players

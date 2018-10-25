@@ -2,20 +2,17 @@
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 
-[node name="Main" type="Node2D" index="0"]
-
+[node name="Main" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="0"]
-
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="Control" type="Control" parent="CanvasLayer" index="0"]
-
+[node name="Control" type="Control" parent="CanvasLayer"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -27,8 +24,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control" index="0"]
-
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -41,16 +37,15 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 use_top_left = false
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer" index="0"]
-
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 337.0
-margin_top = 205.0
+margin_top = 145.0
 margin_right = 687.0
-margin_bottom = 395.0
+margin_bottom = 455.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -61,8 +56,7 @@ custom_constants/separation = 50
 alignment = 0
 _sections_unfolded = [ "custom_constants" ]
 
-[node name="ButtonServer" type="Button" parent="CanvasLayer/Control/CenterContainer/VBoxContainer" index="0"]
-
+[node name="ButtonServer" type="Button" parent="CanvasLayer/Control/CenterContainer/VBoxContainer"]
 editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
@@ -86,8 +80,7 @@ flat = false
 align = 1
 _sections_unfolded = [ "Rect" ]
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/ButtonServer" index="0"]
-
+[node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/ButtonServer"]
 anchor_left = 0.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -107,8 +100,8 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
-[node name="ButtonClient" type="Button" parent="CanvasLayer/Control/CenterContainer/VBoxContainer" index="1"]
-
+[node name="ButtonClient" type="Button" parent="CanvasLayer/Control/CenterContainer/VBoxContainer"]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -132,8 +125,7 @@ flat = false
 align = 1
 _sections_unfolded = [ "Rect" ]
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/ButtonClient" index="0"]
-
+[node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/ButtonClient"]
 anchor_left = 0.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -153,8 +145,50 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts" ]
 
+[node name="Close" type="Button" parent="CanvasLayer/Control/CenterContainer/VBoxContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 240.0
+margin_right = 350.0
+margin_bottom = 310.0
+rect_min_size = Vector2( 350, 70 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+flat = false
+align = 1
+_sections_unfolded = [ "Rect" ]
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/Close"]
+anchor_left = 0.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -7.0
+margin_bottom = 7.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "Close"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
 [connection signal="pressed" from="CanvasLayer/Control/CenterContainer/VBoxContainer/ButtonServer" to="." method="_on_ButtonServer_pressed"]
-
 [connection signal="pressed" from="CanvasLayer/Control/CenterContainer/VBoxContainer/ButtonClient" to="." method="_on_ButtonClient_pressed"]
-
-
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/VBoxContainer/Close" to="." method="_on_Close_pressed"]
